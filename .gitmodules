@@ -1,6 +1,6 @@
 [submodule "sunpassy"]
 	path = sunpassy
-	url = git@github.com:ericwolter/sunpassy.git
+	url = https://github.com/ericwolter/sunpassy.git
 [submodule "apple-healthkit-csv"]
 	path = apple-healthkit-csv
-	url = git@github.com:ericwolter/apple-healthkit-csv.git
+	url = https://github.com/ericwolter/apple-healthkit-csv.git
