@@ -34,6 +34,6 @@ module.exports = function(eleventyConfig) {
     dir: {
       output: "../dist"
     },
-    templateFormats: ['pug', 'njk']
+    templateFormats: ['pug', 'njk', 'md']
   }
 }
