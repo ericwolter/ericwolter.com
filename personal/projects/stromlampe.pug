@@ -1,0 +1,22 @@
+extends /layout.pug
+block variables
+    - var page = 'p-app'
+    - var title = 'Stromlampe - EDL21 Stromzähler'
+
+block scripts
+  link(rel='stylesheet', href='/css/projects/stromlampe/style.css')
+  include /google-analytics.html
+
+block content
+  #description
+    h1
+      img#icon(src="/img/projects/stromlampe/icon.png", alt="stromlampe icon")
+      | Stromlampe
+    p Kleiner Helfer für deine moderne Messeinrichtung.
+    p PIN Eingabe leicht gemacht!
+    a(href="https://geo.itunes.apple.com/us/app/molicula-simple-puzzle-game/id693085736?mt=8" style="display:inline-block;overflow:hidden;background:url(http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg) no-repeat;background-size:contain;width:150px;height:50px;margin-top: 12px;")
+  img#phone(src="/img/projects/stromlampe/screenshot0.png")
+
+block footer
+  footer
+    a(href="/privacy/stromlampe") Datenschutz

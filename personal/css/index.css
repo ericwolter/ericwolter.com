@@ -234,6 +234,10 @@
   width: 90%;
 }
 
+.device-smartphone {
+  width: 25%;
+}
+
 .device-tablet-smartphone {
   width: 70%;
 }
