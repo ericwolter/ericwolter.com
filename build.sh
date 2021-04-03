@@ -16,3 +16,8 @@ npm i
 npm run build
 popd
 
+pushd gpushortage/
+npm i
+npm run build
+popd
+

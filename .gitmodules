@@ -4,3 +4,6 @@
 [submodule "apple-healthkit-csv"]
 	path = apple-healthkit-csv
 	url = https://github.com/ericwolter/apple-healthkit-csv.git
+[submodule "gpushortage"]
+	path = gpushortage
+	url = git@github.com:ericwolter/gpushortage.git
