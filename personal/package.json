@@ -16,7 +16,7 @@
     "jstransformer-markdown-it": "^2.1.0",
     "postcss": "^7.0.35",
     "precss": "^4.0.0",
-    "terser": "^4.8.0"
+    "terser": "^4.8.1"
   },
   "dependencies": {
     "normalize.css": "^8.0.1"
