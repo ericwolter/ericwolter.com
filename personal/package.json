@@ -4,21 +4,17 @@
   "description": "",
   "private": true,
   "scripts": {
-    "build": "npx @11ty/eleventy build",
+    "build": "npx @11ty/eleventy",
     "serve": "npx @11ty/eleventy --serve"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@11ty/eleventy": "^0.12.1",
-    "cssnano": "^5.0.14",
-    "jstransformer-markdown-it": "^2.1.0",
-    "postcss": "^7.0.35",
-    "precss": "^4.0.0",
-    "terser": "^4.8.0"
+    "@11ty/eleventy": "^1.0.1"
   },
   "dependencies": {
+    "jstransformer-markdown-it": "^3.0.0",
     "normalize.css": "^8.0.1"
   }
 }
