@@ -10,14 +10,3 @@ pushd apple-healthkit-csv/
 npm i
 ./deploy.sh
 popd
-
-pushd sunpassy
-npm i
-npm run build
-popd
-
-pushd gpushortage/
-npm i
-npm run build
-popd
-
