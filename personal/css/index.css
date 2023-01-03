@@ -125,11 +125,13 @@ a:active {
 
   text-decoration: none;
 
-  transition: 0.2s ease;
+  transition: 0.4s ease;
+
 }
 
 #about .button:hover {
-  background-color: rgba(214, 34, 0, 0.2);
+  background-color: var(--accent-color);
+  color: var(--background-color);
 }
 
 .wave {
