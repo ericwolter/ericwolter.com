@@ -10,11 +10,7 @@ block content
         li
           a.underline-fx.social-link(href='https://mailhide.io/e/bLVMN' onclick='mailhidepopup=window.open("https://mailhide.io/e/bLVMN","mailhidepopup","width=580,height=635"); return false;') Mail
         li
-          a.underline-fx.social-link(href='http://xing.to/ericwolter') Xing
-        li
           a.underline-fx.social-link(href='https://github.com/ericwolter') GitHub
-        li
-          a.underline-fx.social-link(href='https://twitter.com/_ericwolter') Twitter
   main#content(role="main")
     section#about
       h3.code 
@@ -23,13 +19,16 @@ block content
         | , my name is
       h1 Eric Wolter.
       h2 I develop things in my free time.
-      p I am a software developer based in Germany. I really enjoy mobile and web development, and also have an interest in physics simulations. Currently, I work as an engineering manager at Bosch in the Stuttgart area.
+      p I am a software developer based in Germany. I really enjoy mobile and web development, and also have an interest in physics simulations. Currently, I work as an data solution architect at Bosch Rexroth in the Main-Spessart region.
 
-      a.button.code(href="https://mailhide.io/e/bLVMN" onclick="mailhidepopup=window.open('https://mailhide.io/e/bLVMN','mailhidepopup','width=580,height=635'); return false;") Contact me!
+      .cta
+        a.button.code(href="https://mailhide.io/e/bLVMN" onclick="mailhidepopup=window.open('https://mailhide.io/e/bLVMN','mailhidepopup','width=580,height=635'); return false;") Contact me!
+        a.button.code(href="#projects") Projects 
+          span.bouncing-arrow ↓
 
     section#projects
       article#featured
-        h2 Shiny new projects
+        h2 Ongoing projects
         .project-grid
           a.project(href='https://customreliefmaps.com')
             header

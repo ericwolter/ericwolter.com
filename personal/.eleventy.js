@@ -1,4 +1,8 @@
-module.exports = function(eleventyConfig) {
+import pugPlugin from "@11ty/eleventy-plugin-pug";
+
+export default function (eleventyConfig) {
+	eleventyConfig.addPlugin(pugPlugin);
+
   eleventyConfig.addWatchTarget('./css');
   eleventyConfig.addWatchTarget('./js');
   eleventyConfig.addWatchTarget('./img');

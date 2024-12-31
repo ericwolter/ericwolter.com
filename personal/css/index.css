@@ -15,7 +15,7 @@ a:active {
   position: sticky;
   top: 0;
   z-index: 10;
-  background-color: rgba(255, 255, 248, 0.95)
+  background-color: var(--header-background-color);
 }
 
 .main-navigation {
@@ -115,23 +115,37 @@ a:active {
   margin-top: 32px;
 }
 
-#about .button {
+#about .cta {
   margin-top: 40px;
-  border: 1px solid var(--accent-color);
-  border-radius: 8px;
+}
+
+#about .button {
+  display: inline-block;
+  position: relative;
+  margin-right: 20px;
   padding: 20px 28px;
-
   font-size: 14px;
-
   text-decoration: none;
-
-  transition: 0.4s ease;
-
+  cursor: pointer;
+  border: 1px solid var(--accent-color);
+  border-radius: 5px;
+  box-shadow: 4px 4px 0px 0px var(--accent-color);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
 #about .button:hover {
-  background-color: var(--accent-color);
-  color: var(--background-color);
+  transform: translate(4px, 4px);
+  box-shadow: none;
+}
+
+#about .button:active {
+  transform: translate(6px, 6px);
+  box-shadow: none;
+}
+
+#about .button:focus {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 4px;
 }
 
 .wave {
@@ -153,9 +167,28 @@ a:active {
 100% { transform: rotate( 0.0deg) }
 }
 
+@keyframes subtle-bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-5px);
+  }
+  60% {
+    transform: translateY(-3px);
+  }
+}
+
+.bouncing-arrow {
+  display: inline-block; /* Ensures transform works correctly */
+  animation: subtle-bounce 4s infinite;
+  color: var(--accent-color);
+}
+
 #projects {
-  max-width: 1000px;
-  margin: 0 auto;
+  max-width: 800px;
+  margin: 0px auto;
+  scroll-margin-top: 80px; 
 }
 
 .project-grid a {
@@ -176,12 +209,23 @@ a:active {
 }
 
 .project {
-  background-color: rgba(17, 17, 17, 0.04);
-}
-
-.project {
   position: relative;
   padding: 40px 40px 50px 30px;
+  cursor: pointer;
+  border: 1px solid var(--accent-color);
+  border-radius: 5px;
+  box-shadow: 4px 4px 0px 0px var(--accent-color);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.project:hover {
+  transform: translate(4px, 4px);
+  box-shadow: none;
+}
+
+.project:active {
+  transform: translate(6px, 6px);
+  box-shadow: none;
 }
 
 .project svg {
@@ -255,4 +299,5 @@ a:active {
   margin: 0;
   margin-top: 32px;
   margin-bottom: 16px;
+  text-align: center;
 }
