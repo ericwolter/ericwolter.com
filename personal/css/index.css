@@ -3,6 +3,41 @@
   --text-color: rgba(10, 10, 10, 0.8);
   --accent-color: rgba(147, 95, 72, 1.0);
   --header-background-color: rgba(250, 250, 250, 0.9);
+  --switcher-bg: rgba(30, 30, 30, 0.85);
+  --switcher-fg: rgba(255, 255, 255, 0.75);
+  --switcher-active-bg: rgba(0, 0, 0, 0.65);
+  --switcher-active-fg: rgba(255, 255, 255, 0.95);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: rgb(12, 12, 12);
+    --text-color: rgba(245, 245, 245, 0.86);
+    --accent-color: rgba(212, 162, 120, 1.0);
+    --header-background-color: rgba(12, 12, 12, 0.9);
+    --switcher-bg: rgba(40, 40, 40, 0.9);
+    --switcher-fg: rgba(255, 255, 255, 0.7);
+    --switcher-active-bg: rgba(0, 0, 0, 0.7);
+    --switcher-active-fg: rgba(255, 255, 255, 0.95);
+  }
+}
+
+html[data-theme="light"] {
+  --background-color: rgb(250, 250, 250);
+  --text-color: rgba(10, 10, 10, 0.8);
+  --accent-color: rgba(147, 95, 72, 1.0);
+  --header-background-color: rgba(250, 250, 250, 0.9);
+}
+
+html[data-theme="dark"] {
+  --background-color: rgb(12, 12, 12);
+  --text-color: rgba(245, 245, 245, 0.86);
+  --accent-color: rgba(212, 162, 120, 1.0);
+  --header-background-color: rgba(12, 12, 12, 0.9);
+  --switcher-bg: rgba(40, 40, 40, 0.9);
+  --switcher-fg: rgba(255, 255, 255, 0.7);
+  --switcher-active-bg: rgba(0, 0, 0, 0.7);
+  --switcher-active-fg: rgba(255, 255, 255, 0.95);
 }
 
 html,
@@ -40,6 +75,39 @@ body {
   margin: 0 8px;
 }
 
+.theme-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px;
+  background: var(--switcher-bg);
+  border-radius: 999px;
+}
+
+.theme-button {
+  width: 34px;
+  height: 22px;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--switcher-fg);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.theme-button svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  stroke-width: 2;
+}
+
+.theme-button[data-active="true"] {
+  background: var(--switcher-active-bg);
+  color: var(--switcher-active-fg);
+}
 #content {
   margin: 0 8%;
 }
