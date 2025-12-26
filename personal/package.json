@@ -12,10 +12,9 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@11ty/eleventy": "^3.1.2",
-    "@11ty/eleventy-plugin-pug": "^1.0.0"
+    "@11ty/eleventy": "^3.1.2"
   },
   "dependencies": {
-    "normalize.css": "^8.0.1"
+    "modern-normalize": "^3.0.1"
   }
 }

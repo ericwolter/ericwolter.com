@@ -1,11 +1,11 @@
 # Repository Guidelines
 
-This repository contains a personal site built with Eleventy, using Pug and Nunjucks templates plus static CSS and JS assets.
+This repository contains a personal site built with Eleventy, using Nunjucks templates plus static CSS and JS assets.
 
 ## Project Structure & Module Organization
-- `index.pug` is the main homepage; `projects/` contains project-specific pages (for example `projects/health-export-redirect.pug`).
+- `index.njk` is the main homepage; `projects/` contains project-specific pages (for example `projects/health-export-redirect.njk`).
 - `privacy/` holds Markdown privacy statements, and `impressum.njk` handles the imprint/legal page.
-- `_includes/` stores shared layouts and partials such as `layout.pug` and `privacy.njk`.
+- `_includes/` stores shared layouts and partials such as `layout.njk` and `privacy.njk`.
 - `css/` contains global styles (`_global.css`, `index.css`) and project-specific styles under `css/projects/`.
 - `js/` is for client scripts; `img/` contains icons and other static assets.
 
@@ -16,7 +16,7 @@ This repository contains a personal site built with Eleventy, using Pug and Nunj
 
 ## Coding Style & Naming Conventions
 - Indentation: 2 spaces for Pug, CSS, and JS; follow existing file patterns.
-- Templates: use Pug for pages/layouts and Nunjucks for shared templates; keep markup readable and minimize inline scripts.
+- Templates: use Nunjucks for pages/layouts; keep markup readable and minimize inline scripts.
 - Naming: prefer lowercase filenames with hyphens (for example `molicula-style.css`); use kebab-case for CSS classes.
 - Styling: update shared colors and typography via CSS custom properties in `css/_global.css`.
 
