@@ -5,18 +5,17 @@
   "description": "",
   "private": true,
   "scripts": {
-    "build": "npx @11ty/eleventy",
-    "serve": "npx @11ty/eleventy --serve"
+    "build": "bunx @11ty/eleventy",
+    "serve": "bunx @11ty/eleventy --serve"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@11ty/eleventy": "^3.0.0",
+    "@11ty/eleventy": "^3.1.2",
     "@11ty/eleventy-plugin-pug": "^1.0.0"
   },
   "dependencies": {
-    "jstransformer-markdown-it": "^3.0.0",
     "normalize.css": "^8.0.1"
   }
 }
