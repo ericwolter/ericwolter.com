@@ -1,9 +1,11 @@
 {% set safeTitle = title or "Eric Wolter" %}
+{% set safeDescription = description or "Personal site of Eric Wolter featuring ongoing and archived projects in web, mobile, and physics simulations." %}
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{{ safeDescription }}">
     <title>{{ safeTitle }}</title>
     <link rel="stylesheet" href="/css/style.css">
     {% block scripts %}{% endblock %}
