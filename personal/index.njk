@@ -1,213 +1,216 @@
 ---
 ---
 {% extends "layout.njk" %}
+{% block scripts %}
+{% endblock %}
 {% block content %}
-  <header id="banner">
-    <nav class="main-navigation" role="complementary">
-      <a id="logo" class="bg-swipe-fx" href="https://www.ericwolter.com/">E</a>
-      <ul>
+  <main id="content">
+    <section id="about">
+      <script>
+        (() => {
+          const hour = new Date().getHours();
+          let label = "Good morning";
+          let iconSrc = "/img/icons/lucide-sun.svg";
+
+          if (hour >= 11 && hour < 17) {
+            label = "Good afternoon";
+            iconSrc = "/img/icons/lucide-sun.svg";
+          } else if (hour >= 17 && hour < 21) {
+            label = "Good evening";
+            iconSrc = "/img/icons/lucide-sunset.svg";
+          } else if (hour >= 21 || hour < 5) {
+            label = "Good night";
+            iconSrc = "/img/icons/lucide-moon.svg";
+          }
+
+          document.write(
+            `<h2 class="greeting">
+              <span class="greeting__text">${label}</span>
+              <img class="greeting__icon" src="${iconSrc}" alt="" aria-hidden="true">
+            </h2>`
+          );
+        })();
+      </script>
+      <noscript>
+        <h2 class="greeting">
+          <span class="greeting__text">Good day</span>
+          <img class="greeting__icon" src="/img/icons/lucide-sun.svg" alt="" aria-hidden="true">
+        </h2>
+      </noscript>
+      <p>Nice to see you, I'm Eric.<br>I develop things in my free time. I really enjoy mobile and web development, and also have an interest in physics simulations.<br>Currently, I work as an data solution architect at Bosch Rexroth.</p>
+    </section>
+    <section id="active-projects" class="projects">
+      <h2>Ongoing projects</h2>
+      <ul class="project-grid">
         <li>
-          <a class="underline-fx social-link" href="https://mailhide.io/e/bLVMN" onclick="mailhidepopup=window.open('https://mailhide.io/e/bLVMN','mailhidepopup','width=580,height=635'); return false;">Mail</a>
+          <a class="project" href="https://levelreads.com" aria-label="Visit levelreads.com (external)">
+            <h3>levelreads.com</h3>
+            <p class="project-type">Web Development (Coming soon!)</p>
+            <p>Generated printable reading level 1 booklets.</p>
+            <span class="project-icons">
+              <img class="project-icon project-icon--external" src="/img/icons/lucide-external-link.svg" alt="">
+              <img class="project-icon project-icon--platform" src="/img/icons/lucide-globe.svg" alt="">
+            </span>
+          </a>
         </li>
         <li>
-          <a class="underline-fx social-link" href="https://github.com/ericwolter">GitHub</a>
+          <a class="project" href="https://apple.co/3jPwr72" aria-label="Visit Simple Health Export CSV on the App Store (external)">
+            <h3>Simple Health Export CSV</h3>
+            <p class="project-type">iOS App Store</p>
+            <p>Export your health data into simple to use CSV files.</p>
+            <span class="project-icons">
+              <img class="project-icon project-icon--external" src="/img/icons/lucide-external-link.svg" alt="">
+              <img class="project-icon project-icon--platform" src="/img/icons/app-store.svg" alt="">
+            </span>
+          </a>
         </li>
-        <li class="theme-switcher" aria-label="Theme">
-          <button type="button" class="theme-button" data-theme="light" aria-label="Light theme" aria-pressed="false">
-            {% include "img/icons/lucide-sun.svg" %}
-          </button>
-          <button type="button" class="theme-button" data-theme="dark" aria-label="Dark theme" aria-pressed="false">
-            {% include "img/icons/lucide-moon.svg" %}
-          </button>
-          <button type="button" class="theme-button" data-theme="system" aria-label="System theme" aria-pressed="false">
-            {% include "img/icons/lucide-monitor.svg" %}
-          </button>
+        <li>
+          <a class="project" href="https://www.ericwolter.com/projects/apple-health-export/" aria-label="Visit Apple Health XML to CSV converter (external)">
+            <h3>Apple Health XML to CSV converter.</h3>
+            <p class="project-type">Web Development</p>
+            <p>Convert your Apple Health export.xml to CSV format in the browser.</p>
+            <span class="project-icons">
+              <img class="project-icon project-icon--external" src="/img/icons/lucide-external-link.svg" alt="">
+              <img class="project-icon project-icon--platform" src="/img/icons/lucide-globe.svg" alt="">
+            </span>
+          </a>
+        </li>
+        <li>
+          <a class="project" href="https://apple.co/3jQpYsf" aria-label="Visit Stromlampe - EDL21 Stromzähler on the App Store (external)">
+            <h3>Stromlampe - EDL21 Stromzähler</h3>
+            <p class="project-type">iOS App Store</p>
+            <p>Helfer für moderne Messeinrichtung.</p>
+            <span class="project-icons">
+              <img class="project-icon project-icon--external" src="/img/icons/lucide-external-link.svg" alt="">
+              <img class="project-icon project-icon--platform" src="/img/icons/app-store.svg" alt="">
+            </span>
+          </a>
+        </li>
+        <li>
+          <a class="project" href="http://thomas-wolter.de" aria-label="Visit thomas-wolter.de (external)">
+            <h3>thomas-wolter.de</h3>
+            <p class="project-type">Web Development</p>
+            <p>3D Snake Viewer</p>
+            <span class="project-icons">
+              <img class="project-icon project-icon--external" src="/img/icons/lucide-external-link.svg" alt="">
+              <img class="project-icon project-icon--platform" src="/img/icons/lucide-globe.svg" alt="">
+            </span>
+          </a>
         </li>
       </ul>
-    </nav>
-  </header>
-  <main id="content" role="main">
-    <section id="about">
-      <h3 class="code">
-        Hi
-        <svg class="wave" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18.7798" height="19.0801" viewBox="0 0 18.7798 19.0801"><path d="M16.6111 16.9278C19.0428 14.4961 19.4334 11.4785 17.7635 7.96291L15.5662 3.33401C15.4099 3.01174 15.2244 2.74807 15.0193 2.54299C14.2869 1.81057 13.2224 1.84963 12.5193 2.55276C12.0408 3.03127 11.8943 3.74416 12.2068 4.51565L12.8611 6.07815C12.8806 6.11721 12.8806 6.15627 12.8514 6.18557C12.8123 6.21487 12.7732 6.2051 12.7342 6.17581L7.19706 0.638696C6.39627-0.171851 5.38065-0.171851 4.60917 0.599633C4.32596 0.873071 4.16971 1.2344 4.15995 1.60549C3.35917 0.990258 2.47049 1.00979 1.7869 1.69338C1.11307 2.36721 1.09354 3.28518 1.66971 4.06643C1.31815 4.06643 0.986118 4.22268 0.732212 4.47659C0.0193215 5.18948 0.0388528 6.16604 0.800572 6.92776L1.57206 7.69924C1.1912 7.68948 0.810337 7.86526 0.517368 8.15823C-0.205288 8.88088-0.166225 9.90627 0.605259 10.6778L6.54276 16.6153C9.77518 19.8477 13.6912 19.8477 16.6111 16.9278ZM15.6248 16.0098C13.1834 18.4512 10.117 18.3731 7.34354 15.5899L1.62088 9.86721C1.31815 9.57424 1.30838 9.17385 1.59159 8.89065C1.87479 8.60745 2.28495 8.60745 2.57792 8.90041L6.11307 12.4258C6.36698 12.6797 6.73807 12.6504 6.96268 12.4258C7.20682 12.1914 7.23612 11.8106 6.98221 11.5567L1.70877 6.27346C1.41581 5.98049 1.39627 5.58987 1.67948 5.30666C1.96268 5.0137 2.3826 5.0137 2.67557 5.30666L7.59745 10.2383C7.85135 10.4922 8.23221 10.4531 8.45682 10.2285C8.6912 9.99416 8.73026 9.61331 8.47635 9.3594L2.6951 3.57815C2.40213 3.28518 2.3826 2.87502 2.67557 2.59182C2.94901 2.30862 3.36893 2.31838 3.6619 2.61135L9.44315 8.3926C9.67752 8.63674 10.0584 8.62698 10.2928 8.3926C10.5369 8.14846 10.5564 7.75784 10.3221 7.52346L5.39042 2.59182C5.09745 2.29885 5.08768 1.89846 5.37088 1.60549C5.66385 1.32229 6.06424 1.33206 6.35721 1.62502L13.1541 8.4219C13.4959 8.77346 13.906 8.7637 14.1892 8.48049C14.4334 8.23635 14.5408 7.91409 14.3455 7.40627L13.1248 4.20315C12.9588 3.7637 13.115 3.41213 13.4471 3.25588C13.8181 3.08987 14.1502 3.26565 14.365 3.72463L16.6306 8.50979C18.1443 11.7129 17.5486 14.0762 15.6248 16.0098Z" fill="#000000" fill-opacity="0.85"/></svg>
-        , my name is
-      </h3>
-      <h1>Eric Wolter.</h1>
-      <h2>I develop things in my free time.</h2>
-      <p>I am a software developer based in Germany. I really enjoy mobile and web development, and also have an interest in physics simulations. Currently, I work as an data solution architect at Bosch Rexroth in the Main-Spessart region.</p>
-      <div class="cta">
-        <a class="button code" href="https://mailhide.io/e/bLVMN" onclick="mailhidepopup=window.open('https://mailhide.io/e/bLVMN','mailhidepopup','width=580,height=635'); return false;">Contact me!</a>
-        <a class="button code" href="#projects">Projects <span class="bouncing-arrow">↓</span></a>
-      </div>
     </section>
-    <section id="projects">
-      <article id="featured">
-        <h2>Ongoing projects</h2>
-        <div class="project-grid">
-          <a class="project" href="https://customreliefmaps.com">
-            <header>
-              <h5>Print-on-demand (Coming soon!)</h5>
-              <h4>customreliefmaps.com</h4>
-            </header>
-            <section>
-              <p>Stunning cartography prints based on ray-traced light simulations.</p>
-            </section>
-            <footer>
-              <svg class="project-link web small" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h82.7l-201.3 201.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l201.3-201.4v82.7c0 17.7 14.3 32 32 32s32-14.3 32-32v-160c0-17.7-14.3-32-32-32zm-240 32c-44.2 0-80 35.8-80 80v320c0 44.2 35.8 80 80 80h320c44.2 0 80-35.8 80-80v-112c0-17.7-14.3-32-32-32s-32 14.3-32 32v112c0 8.8-7.2 16-16 16h-320c-8.8 0-16-7.2-16-16v-320c0-8.8 7.2-16 16-16h112c17.7 0 32-14.3 32-32s-14.3-32-32-32z"/></svg>
-              <svg class="project-link web" viewBox="0 0 19.9219 19.9316" xmlns="http://www.w3.org/2000/svg"><path d="m0 0h19.9219v19.9316h-19.9219z" opacity="0"/><path d="m10.3711 17.4707c1.8555 0 3.418-2.832 3.8184-3.4961.5078-.8301.2734-1.6601.2734-2.1484 0-.3028 1.0351-1.0547 1.0351-1.94339 0-.89843-2.0019-1.64062-2.0019-2.00195 0-.23438.1953-.51758.3906-.51758.3809 0 1.4356 1.35742 2.0801 1.35742.3906 0 .5078-.34179.6641-.34179.2636 0 .4687 2.90039 1.8164 3.49609l.4101-.8984c-1.2402-.3223-.7812-3.66215-2.1191-3.66215-.4297 0-.6934.38086-.8594.38086-.1074 0-.3613-.21484-.9375-.68359-.2832-.22461-.5762-.52734-1.1035-.52734-.6445 0-1.2695.73242-1.2695 1.40624 0 1.06446 1.9433 1.6211 1.9433 1.99219 0 .22459-.0879.40039-.4492.81059-.4004.4492-.5859.7519-.5859 1.1328 0 .166.0195.3222.0293.4687.0488.6543.0195.8985-.1661 1.211-.4492.6933-1.7285 2.9785-2.9687 2.9785-1.10352 0-1.00587-1.5821-1.00587-3.0469 0-1.4258-1.13281-2.5-2.63671-2.5-1.16211 0-1.71875-.5664-1.71875-1.66016 0-1.52343 1.60156-2.51953 3.125-2.51953 1.02539 0 1.83593.51758 2.63673.51758.6543 0 1.1133-.97656 1.1133-1.69922 0-.9082-1.92386-1.91406-2.5098-1.91406-.47852 0-.68359.2832-.72266.89844l.19532-.01953-.3125-.24414c-.41016-.30274-.73243-.47852-1.10352-.47852-.9375 0-.97656 1.25976-1.47461 1.25976-.12695 0-.21484-.08789-.21484-.2246 0-.42969 1.04492-1.3086 1.05469-2.51954l.00976-.79101h-.92773v.87891c0 1.17187-1.04493 1.60156-1.04493 2.52929 0 .56641.4004.9375 1.01563.9375 1.16211 0 1.18164-1.23047 1.65039-1.23047.37109.00977.80078.6543 1.54297.6543.44922 0 .66406-.3125.64453-.85938l-.27344.0879c.59574.21484 1.54294.68359 1.54294 1.12304 0 .25391-.1074.625-.3125.625-.4199 0-1.52341-.51758-2.50973-.51758-2.06055 0-4.11133 1.43555-4.11133 3.50586 0 1.65036.97656 2.64646 2.70508 2.64646.94726 0 1.65039.6348 1.65039 1.5137 0 1.4453-.16602 4.0332 1.99219 4.0332zm2.6367-13.45703c.2149 0 .4102.20508.7715.20508.2246 0 .3906-.20508.3906-.46875 0-.47852-.5371-.83984-1.2402-.83984-.8301 0-1.3086.27343-1.3086.75195 0 .3125.2344.53711.5469.53711.3222 0 .4687-.18555.8398-.18555zm-3.04686 15.90823c5.44926 0 9.96096-4.5215 9.96096-9.96096 0-5.44922-4.5215-9.96094-9.97073-9.96094-5.43945 0-9.95117 4.51172-9.95117 9.96094 0 5.43946 4.52148 9.96096 9.96094 9.96096zm0-1.3281c-4.7168 0-8.63282-3.9161-8.63282-8.63286 0-4.7168 3.90626-8.63282 8.62305-8.63282 4.71683 0 8.64263 3.91602 8.64263 8.63282 0 4.71676-3.9161 8.63286-8.63286 8.63286z" fill="#fff" fill-opacity=".85"/></svg>
-            </footer>
+    <section id="archived-projects" class="projects">
+      <h2>Archived projects</h2>
+      <ul class="project-grid">
+        <li>
+          <a class="project" href="https://customreliefmaps.com" aria-label="Visit customreliefmaps.com (external)">
+            <h3>customreliefmaps.com</h3>
+            <p class="project-type">Print-on-demand (Coming soon!)</p>
+            <p>Stunning cartography prints based on ray-traced light simulations.</p>
+            <span class="project-icons">
+              <img class="project-icon project-icon--external" src="/img/icons/lucide-external-link.svg" alt="">
+              <img class="project-icon project-icon--platform" src="/img/icons/lucide-globe.svg" alt="">
+            </span>
           </a>
-          <a class="project" href="https://apple.co/3jPwr72">
-            <header>
-              <h5>iOS App Store</h5>
-              <h4>Simple Health Export CSV</h4>
-            </header>
-            <section>
-              <p>Export your health data into simple to use CSV files.</p>
-            </section>
-            <footer>
-              <svg class="project-link web small" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h82.7l-201.3 201.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l201.3-201.4v82.7c0 17.7 14.3 32 32 32s32-14.3 32-32v-160c0-17.7-14.3-32-32-32zm-240 32c-44.2 0-80 35.8-80 80v320c0 44.2 35.8 80 80 80h320c44.2 0 80-35.8 80-80v-112c0-17.7-14.3-32-32-32s-32 14.3-32 32v112c0 8.8-7.2 16-16 16h-320c-8.8 0-16-7.2-16-16v-320c0-8.8 7.2-16 16-16h112c17.7 0 32-14.3 32-32s-14.3-32-32-32z"/></svg>
-              <svg class="project-link web" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m255.9 120.9 9.1-15.7c5.6-9.8 18.1-13.1 27.9-7.5s13.1 18.1 7.5 27.9l-87.5 151.5h63.3c20.5 0 32 24.1 23.1 40.8h-185.5c-11.3 0-20.4-9.1-20.4-20.4s9.1-20.4 20.4-20.4h52l66.6-115.4-20.8-36.1c-5.6-9.8-2.3-22.2 7.5-27.9 9.8-5.6 22.2-2.3 27.9 7.5l8.9 15.7zm-78.7 218-19.6 34c-5.6 9.8-18.1 13.1-27.9 7.5s-13.1 18.1-7.5 27.9l14.6-25.2c16.4-5.1 29.8-1.2 40.4 11.6zm168.9-61.7h53.1c11.3 0 20.4 9.1 20.4 20.4s-9.1 20.4-20.4 20.4h-29.5l19.9 34.5c5.6 9.8 2.3 22.2-7.5 27.9-9.8 5.6-22.2 2.3-27.9-7.5-33.5-58.1-58.7-101.6-75.4-130.6-17.1-29.5-4.9-59.1 7.2-69.1 13.4 23 33.4 57.7 60.1 104zm-90.1-269.2c-137 0-248 111-248 248s111 248 248 248 248-111 248-248-111-248-248-248zm216 248c0 118.7-96.1 216-216 216-118.7 0-216-96.1-216-216 0-118.7 96.1-216 216-216 118.7 0 216 96.1 216 216z"/></svg>
-            </footer>
+        </li>
+        <li>
+          <a class="project" href="https://github.com/ericwolter/gpushortage" aria-label="Visit Great GPU Shortage 2020 on GitHub (external)">
+            <h3>Great GPU Shortage 2020</h3>
+            <p class="project-type">Web Scraping</p>
+            <p>Small visualization of eBay GPU prices</p>
+            <span class="project-icons">
+              <img class="project-icon project-icon--external" src="/img/icons/lucide-external-link.svg" alt="">
+              <img class="project-icon project-icon--platform" src="/img/icons/github.svg" alt="">
+            </span>
           </a>
-          <a class="project" href="https://www.ericwolter.com/projects/apple-health-export/">
-            <header>
-              <h5>Web Development</h5>
-              <h4>Apple Health XML to CSV converter.</h4>
-            </header>
-            <section>
-              <p>Convert your Apple Health export.xml to CSV format in the browser.</p>
-            </section>
-            <footer>
-              <svg class="project-link web small" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h82.7l-201.3 201.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l201.3-201.4v82.7c0 17.7 14.3 32 32 32s32-14.3 32-32v-160c0-17.7-14.3-32-32-32zm-240 32c-44.2 0-80 35.8-80 80v320c0 44.2 35.8 80 80 80h320c44.2 0 80-35.8 80-80v-112c0-17.7-14.3-32-32-32s-32 14.3-32 32v112c0 8.8-7.2 16-16 16h-320c-8.8 0-16-7.2-16-16v-320c0-8.8 7.2-16 16-16h112c17.7 0 32-14.3 32-32s-14.3-32-32-32z"/></svg>
-              <svg class="project-link web" viewBox="0 0 19.9219 19.9316" xmlns="http://www.w3.org/2000/svg"><path d="m0 0h19.9219v19.9316h-19.9219z" opacity="0"/><path d="m10.3711 17.4707c1.8555 0 3.418-2.832 3.8184-3.4961.5078-.8301.2734-1.6601.2734-2.1484 0-.3028 1.0351-1.0547 1.0351-1.94339 0-.89843-2.0019-1.64062-2.0019-2.00195 0-.23438.1953-.51758.3906-.51758.3809 0 1.4356 1.35742 2.0801 1.35742.3906 0 .5078-.34179.6641-.34179.2636 0 .4687 2.90039 1.8164 3.49609l.4101-.8984c-1.2402-.3223-.7812-3.66215-2.1191-3.66215-.4297 0-.6934.38086-.8594.38086-.1074 0-.3613-.21484-.9375-.68359-.2832-.22461-.5762-.52734-1.1035-.52734-.6445 0-1.2695.73242-1.2695 1.40624 0 1.06446 1.9433 1.6211 1.9433 1.99219 0 .22459-.0879.40039-.4492.81059-.4004.4492-.5859.7519-.5859 1.1328 0 .166.0195.3222.0293.4687.0488.6543.0195.8985-.1661 1.211-.4492.6933-1.7285 2.9785-2.9687 2.9785-1.10352 0-1.00587-1.5821-1.00587-3.0469 0-1.4258-1.13281-2.5-2.63671-2.5-1.16211 0-1.71875-.5664-1.71875-1.66016 0-1.52343 1.60156-2.51953 3.125-2.51953 1.02539 0 1.83593.51758 2.63673.51758.6543 0 1.1133-.97656 1.1133-1.69922 0-.9082-1.92386-1.91406-2.5098-1.91406-.47852 0-.68359.2832-.72266.89844l.19532-.01953-.3125-.24414c-.41016-.30274-.73243-.47852-1.10352-.47852-.9375 0-.97656 1.25976-1.47461 1.25976-.12695 0-.21484-.08789-.21484-.2246 0-.42969 1.04492-1.3086 1.05469-2.51954l.00976-.79101h-.92773v.87891c0 1.17187-1.04493 1.60156-1.04493 2.52929 0 .56641.4004.9375 1.01563.9375 1.16211 0 1.18164-1.23047 1.65039-1.23047.37109.00977.80078.6543 1.54297.6543.44922 0 .66406-.3125.64453-.85938l-.27344.0879c.59574.21484 1.54294.68359 1.54294 1.12304 0 .25391-.1074.625-.3125.625-.4199 0-1.52341-.51758-2.50973-.51758-2.06055 0-4.11133 1.43555-4.11133 3.50586 0 1.65036.97656 2.64646 2.70508 2.64646.94726 0 1.65039.6348 1.65039 1.5137 0 1.4453-.16602 4.0332 1.99219 4.0332zm2.6367-13.45703c.2149 0 .4102.20508.7715.20508.2246 0 .3906-.20508.3906-.46875 0-.47852-.5371-.83984-1.2402-.83984-.8301 0-1.3086.27343-1.3086.75195 0 .3125.2344.53711.5469.53711.3222 0 .4687-.18555.8398-.18555zm-3.04686 15.90823c5.44926 0 9.96096-4.5215 9.96096-9.96096 0-5.44922-4.5215-9.96094-9.97073-9.96094-5.43945 0-9.95117 4.51172-9.95117 9.96094 0 5.43946 4.52148 9.96096 9.96094 9.96096zm0-1.3281c-4.7168 0-8.63282-3.9161-8.63282-8.63286 0-4.7168 3.90626-8.63282 8.62305-8.63282 4.71683 0 8.64263 3.91602 8.64263 8.63282 0 4.71676-3.9161 8.63286-8.63286 8.63286z" fill="#fff" fill-opacity=".85"/></svg>
-            </footer>
+        </li>
+        <li>
+          <a class="project" href="https://github.com/ericwolter/sunpassy" aria-label="Visit sunpassy on GitHub (external)">
+            <h3>sunpassy</h3>
+            <p class="project-type">Progressive Web App</p>
+            <p>Calculate sun direction during train rides.</p>
+            <span class="project-icons">
+              <img class="project-icon project-icon--external" src="/img/icons/lucide-external-link.svg" alt="">
+              <img class="project-icon project-icon--platform" src="/img/icons/github.svg" alt="">
+            </span>
           </a>
-          <a class="project" href="https://apple.co/3jQpYsf">
-            <header>
-              <h5>iOS App Store</h5>
-              <h4>Stromlampe - EDL21 Stromzähler</h4>
-            </header>
-            <section>
-              <p>Helfer für moderne Messeinrichtung.</p>
-            </section>
-            <footer>
-              <svg class="project-link web small" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h82.7l-201.3 201.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l201.3-201.4v82.7c0 17.7 14.3 32 32 32s32-14.3 32-32v-160c0-17.7-14.3-32-32-32zm-240 32c-44.2 0-80 35.8-80 80v320c0 44.2 35.8 80 80 80h320c44.2 0 80-35.8 80-80v-112c0-17.7-14.3-32-32-32s-32 14.3-32 32v112c0 8.8-7.2 16-16 16h-320c-8.8 0-16-7.2-16-16v-320c0-8.8 7.2-16 16-16h112c17.7 0 32-14.3 32-32s-14.3-32-32-32z"/></svg>
-              <svg class="project-link web" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m255.9 120.9 9.1-15.7c5.6-9.8 18.1-13.1 27.9-7.5s13.1 18.1 7.5 27.9l-87.5 151.5h63.3c20.5 0 32 24.1 23.1 40.8h-185.5c-11.3 0-20.4-9.1-20.4-20.4s9.1-20.4 20.4-20.4h52l66.6-115.4-20.8-36.1c-5.6-9.8-2.3-22.2 7.5-27.9 9.8-5.6 22.2-2.3 27.9 7.5l8.9 15.7zm-78.7 218-19.6 34c-5.6 9.8-18.1 13.1-27.9 7.5s-13.1 18.1-7.5 27.9l14.6-25.2c16.4-5.1 29.8-1.2 40.4 11.6zm168.9-61.7h53.1c11.3 0 20.4 9.1 20.4 20.4s-9.1 20.4-20.4 20.4h-29.5l19.9 34.5c5.6 9.8 2.3 22.2-7.5 27.9-9.8 5.6-22.2 2.3-27.9-7.5-33.5-58.1-58.7-101.6-75.4-130.6-17.1-29.5-4.9-59.1 7.2-69.1 13.4 23 33.4 57.7 60.1 104zm-90.1-269.2c-137 0-248 111-248 248s111 248 248 248 248-111 248-248-111-248-248-248zm216 248c0 118.7-96.1 216-216 216-118.7 0-216-96.1-216-216 0-118.7 96.1-216 216-216 118.7 0 216 96.1 216 216z"/></svg>
-            </footer>
+        </li>
+        <li>
+          <a class="project" href="https://github.com/ericwolter/rigidfibers" aria-label="Visit GPU Simulation of Rigid Fibers on GitHub (external)">
+            <h3>GPU Simulation of Rigid Fibers</h3>
+            <p class="project-type">Master's Thesis</p>
+            <p>Fiber sedimentation</p>
+            <span class="project-icons">
+              <img class="project-icon project-icon--external" src="/img/icons/lucide-external-link.svg" alt="">
+              <img class="project-icon project-icon--platform" src="/img/icons/github.svg" alt="">
+            </span>
           </a>
+        </li>
+        <li>
+          <a class="project" href="https://github.com/ericwolter/photoset-editor" aria-label="Visit Photoset Editor on GitHub (external)">
+            <h3>Photoset Editor</h3>
+            <p class="project-type">Web Development</p>
+            <p>Drag'n'drop photo grid</p>
+            <span class="project-icons">
+              <img class="project-icon project-icon--external" src="/img/icons/lucide-external-link.svg" alt="">
+              <img class="project-icon project-icon--platform" src="/img/icons/github.svg" alt="">
+            </span>
+          </a>
+        </li>
+        <li>
+          <a class="project" href="https://apple.co/3IlPqjO" aria-label="Visit Molicula on the App Store (external)">
+            <h3>Molicula</h3>
+            <p class="project-type">iOS App Store</p>
+            <p>Logic puzzle game for iOS</p>
+            <span class="project-icons">
+              <img class="project-icon project-icon--external" src="/img/icons/lucide-external-link.svg" alt="">
+              <img class="project-icon project-icon--platform" src="/img/icons/app-store.svg" alt="">
+            </span>
+          </a>
+        </li>
+        <li>
+          <a class="project" href="https://github.com/ericwolter/position-based-fluids" aria-label="Visit Position based Fluids on GitHub (external)">
+            <h3>Position based Fluids</h3>
+            <p class="project-type">Physics Simulation</p>
+            <p>Realtime GPU water simulation</p>
+            <span class="project-icons">
+              <img class="project-icon project-icon--external" src="/img/icons/lucide-external-link.svg" alt="">
+              <img class="project-icon project-icon--platform" src="/img/icons/github.svg" alt="">
+            </span>
+          </a>
+        </li>
+        <li>
+          <a class="project" href="https://github.com/ericwolter/physically-based-skinning-of-rigid-bodies" aria-label="Visit Physically Based Skinning of Rigid Bodies on GitHub (external)">
+            <h3>Physically Based Skinning of Rigid Bodies</h3>
+            <p class="project-type">Bachelor's Thesis</p>
+            <p>Deformable bodies</p>
+            <span class="project-icons">
+              <img class="project-icon project-icon--external" src="/img/icons/lucide-external-link.svg" alt="">
+              <img class="project-icon project-icon--platform" src="/img/icons/github.svg" alt="">
+            </span>
+          </a>
+        </li>
+      </ul>
+    </section>
+    <section id="contact" class="projects contact">
+      <h2>Contact</h2>
+      <div class="contact__grid">
+        <div class="contact__intro">
+          <p>Say hello. I like hearing from people — whether you have a project in mind or just want to connect.</p>
+          <a class="contact__button" href="https://mailhide.io/en/e/bLVMN" onclick="mailhidepopup=window.open('https://mailhide.io/en/e/bLVMN','mailhidepopup','width=580,height=635'); return false;">Contact</a>
         </div>
-      </article>
-      <article id="archive">
-        <h2>Dusty old projects</h2>
-        <div class="project-grid">
-          <a class="project" href="https://github.com/ericwolter/gpushortage">
-            <header>
-              <h5>Web Scraping</h5>
-              <h4>Great GPU Shortage 2020</h4>
-            </header>
-            <section>
-              <p>Small visualization of eBay GPU prices</p>
-            </section>
-            <footer>
-              <svg class="project-link web small" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h82.7l-201.3 201.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l201.3-201.4v82.7c0 17.7 14.3 32 32 32s32-14.3 32-32v-160c0-17.7-14.3-32-32-32zm-240 32c-44.2 0-80 35.8-80 80v320c0 44.2 35.8 80 80 80h320c44.2 0 80-35.8 80-80v-112c0-17.7-14.3-32-32-32s-32 14.3-32 32v112c0 8.8-7.2 16-16 16h-320c-8.8 0-16-7.2-16-16v-320c0-8.8 7.2-16 16-16h112c17.7 0 32-14.3 32-32s-14.3-32-32-32z"/></svg>
-              <svg class="project-link web" viewBox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><path d="m165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zm65.8-383.2c-138.7 0-244.8 105.3-244.8 244 0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1 100-33.2 167.8-128.1 167.8-239 0-138.7-112.5-244-251.2-244zm-147.6 344.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
-            </footer>
-          </a>
-          <a class="project" href="https://github.com/ericwolter/sunpassy">
-            <header>
-              <h5>Progressive Web App</h5>
-              <h4>sunpassy</h4>
-            </header>
-            <section>
-              <p>Calculate sun direction during train rides.</p>
-            </section>
-            <footer>
-              <svg class="project-link web small" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h82.7l-201.3 201.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l201.3-201.4v82.7c0 17.7 14.3 32 32 32s32-14.3 32-32v-160c0-17.7-14.3-32-32-32zm-240 32c-44.2 0-80 35.8-80 80v320c0 44.2 35.8 80 80 80h320c44.2 0 80-35.8 80-80v-112c0-17.7-14.3-32-32-32s-32 14.3-32 32v112c0 8.8-7.2 16-16 16h-320c-8.8 0-16-7.2-16-16v-320c0-8.8 7.2-16 16-16h112c17.7 0 32-14.3 32-32s-14.3-32-32-32z"/></svg>
-              <svg class="project-link web" viewBox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><path d="m165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zm65.8-383.2c-138.7 0-244.8 105.3-244.8 244 0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1 100-33.2 167.8-128.1 167.8-239 0-138.7-112.5-244-251.2-244zm-147.6 344.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
-            </footer>
-          </a>
-          <a class="project" href="https://github.com/ericwolter/rigidfibers">
-            <header>
-              <h5>Master's Thesis</h5>
-              <h4>GPU Simulation of Rigid Fibers</h4>
-            </header>
-            <section>
-              <p>Fiber sedimentation</p>
-            </section>
-            <footer>
-              <svg class="project-link web small" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h82.7l-201.3 201.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l201.3-201.4v82.7c0 17.7 14.3 32 32 32s32-14.3 32-32v-160c0-17.7-14.3-32-32-32zm-240 32c-44.2 0-80 35.8-80 80v320c0 44.2 35.8 80 80 80h320c44.2 0 80-35.8 80-80v-112c0-17.7-14.3-32-32-32s-32 14.3-32 32v112c0 8.8-7.2 16-16 16h-320c-8.8 0-16-7.2-16-16v-320c0-8.8 7.2-16 16-16h112c17.7 0 32-14.3 32-32s-14.3-32-32-32z"/></svg>
-              <svg class="project-link web" viewBox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><path d="m165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zm65.8-383.2c-138.7 0-244.8 105.3-244.8 244 0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1 100-33.2 167.8-128.1 167.8-239 0-138.7-112.5-244-251.2-244zm-147.6 344.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
-            </footer>
-          </a>
-          <a class="project" href="https://github.com/ericwolter/photoset-editor">
-            <header>
-              <h5>Web Development</h5>
-              <h4>Photoset Editor</h4>
-            </header>
-            <section>
-              <p>Drag'n'drop photo grid</p>
-            </section>
-            <footer>
-              <svg class="project-link web small" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h82.7l-201.3 201.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l201.3-201.4v82.7c0 17.7 14.3 32 32 32s32-14.3 32-32v-160c0-17.7-14.3-32-32-32zm-240 32c-44.2 0-80 35.8-80 80v320c0 44.2 35.8 80 80 80h320c44.2 0 80-35.8 80-80v-112c0-17.7-14.3-32-32-32s-32 14.3-32 32v112c0 8.8-7.2 16-16 16h-320c-8.8 0-16-7.2-16-16v-320c0-8.8 7.2-16 16-16h112c17.7 0 32-14.3 32-32s-14.3-32-32-32z"/></svg>
-              <svg class="project-link web" viewBox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><path d="m165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zm65.8-383.2c-138.7 0-244.8 105.3-244.8 244 0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1 100-33.2 167.8-128.1 167.8-239 0-138.7-112.5-244-251.2-244zm-147.6 344.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1  4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
-            </footer>
-          </a>
-          <a class="project" href="https://apple.co/3IlPqjO">
-            <header>
-              <h5>iOS App Store</h5>
-              <h4>Molicula</h4>
-            </header>
-            <section>
-              <p>Logic puzzle game for iOS</p>
-            </section>
-            <footer>
-              <svg class="project-link web small" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h82.7l-201.3 201.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l201.3-201.4v82.7c0 17.7 14.3 32 32 32s32-14.3 32-32v-160c0-17.7-14.3-32-32-32zm-240 32c-44.2 0-80 35.8-80 80v320c0 44.2 35.8 80 80 80h320c44.2 0 80-35.8 80-80v-112c0-17.7-14.3-32-32-32s-32 14.3-32 32v112c0 8.8-7.2 16-16 16h-320c-8.8 0-16-7.2-16-16v-320c0-8.8 7.2-16 16-16h112c17.7 0 32-14.3 32-32s-14.3-32-32-32z"/></svg>
-              <svg class="project-link web" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m255.9 120.9 9.1-15.7c5.6-9.8 18.1-13.1 27.9-7.5s13.1 18.1 7.5 27.9l-87.5 151.5h63.3c20.5 0 32 24.1 23.1 40.8h-185.5c-11.3 0-20.4-9.1-20.4-20.4s9.1-20.4 20.4-20.4h52l66.6-115.4-20.8-36.1c-5.6-9.8-2.3-22.2 7.5-27.9 9.8-5.6 22.2-2.3 27.9 7.5l8.9 15.7zm-78.7 218-19.6 34c-5.6 9.8-18.1 13.1-27.9 7.5s-13.1 18.1-7.5 27.9l14.6-25.2c16.4-5.1 29.8-1.2 40.4 11.6zm168.9-61.7h53.1c11.3 0 20.4 9.1 20.4 20.4s-9.1 20.4-20.4 20.4h-29.5l19.9 34.5c5.6 9.8 2.3 22.2-7.5 27.9-9.8 5.6-22.2 2.3-27.9-7.5-33.5-58.1-58.7-101.6-75.4-130.6-17.1-29.5-4.9-59.1 7.2-69.1 13.4 23 33.4 57.7 60.1 104zm-90.1-269.2c-137 0-248 111-248 248s111 248 248 248 248-111 248-248-111-248-248-248zm216 248c0 118.7-96.1 216-216 216-118.7 0-216-96.1-216-216 0-118.7 96.1-216 216-216 118.7 0 216 96.1 216 216z"/></svg>
-            </footer>
-          </a>
-          <a class="project" href="https://github.com/ericwolter/position-based-fluids">
-            <header>
-              <h5>Physics Simulation</h5>
-              <h4>Position based Fluids</h4>
-            </header>
-            <section>
-              <p>Realtime GPU water simulation</p>
-            </section>
-            <footer>
-              <svg class="project-link web small" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h82.7l-201.3 201.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l201.3-201.4v82.7c0 17.7 14.3 32 32 32s32-14.3 32-32v-160c0-17.7-14.3-32-32-32zm-240 32c-44.2 0-80 35.8-80 80v320c0 44.2 35.8 80 80 80h320c44.2 0 80-35.8 80-80v-112c0-17.7-14.3-32-32-32s-32 14.3-32 32v112c0 8.8-7.2 16-16 16h-320c-8.8 0-16-7.2-16-16v-320c0-8.8 7.2-16 16-16h112c17.7 0 32-14.3 32-32s-14.3-32-32-32z"/></svg>
-              <svg class="project-link web" viewBox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><path d="m165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zm65.8-383.2c-138.7 0-244.8 105.3-244.8 244 0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1 100-33.2 167.8-128.1 167.8-239 0-138.7-112.5-244-251.2-244zm-147.6 344.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
-            </footer>
-          </a>
-          <a class="project" href="https://github.com/ericwolter/physically-based-skinning-of-rigid-bodies">
-            <header>
-              <h5>Bachelor's Thesis</h5>
-              <h4>Physically Based Skinning of Rigid Bodies</h4>
-            </header>
-            <section>
-              <p>Deformable bodies</p>
-            </section>
-            <footer>
-              <svg class="project-link web small" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h82.7l-201.3 201.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l201.3-201.4v82.7c0 17.7 14.3 32 32 32s32-14.3 32-32v-160c0-17.7-14.3-32-32-32zm-240 32c-44.2 0-80 35.8-80 80v320c0 44.2 35.8 80 80 80h320c44.2 0 80-35.8 80-80v-112c0-17.7-14.3-32-32-32s-32 14.3-32 32v112c0 8.8-7.2 16-16 16h-320c-8.8 0-16-7.2-16-16v-320c0-8.8 7.2-16 16-16h112c17.7 0 32-14.3 32-32s-14.3-32-32-32z"/></svg>
-              <svg class="project-link web" viewBox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><path d="m165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zm65.8-383.2c-138.7 0-244.8 105.3-244.8 244 0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1 100-33.2 167.8-128.1 167.8-239 0-138.7-112.5-244-251.2-244zm-147.6 344.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
-            </footer>
-          </a>
-          <a class="project" href="http://thomas-wolter.de">
-            <header>
-              <h5>Web Development &amp; Design</h5>
-              <h4>thomas-wolter.de</h4>
-            </header>
-            <section>
-              <p>3D Snake Viewer</p>
-            </section>
-            <footer>
-              <svg class="project-link web small" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h82.7l-201.3 201.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l201.3-201.4v82.7c0 17.7 14.3 32 32 32s32-14.3 32-32v-160c0-17.7-14.3-32-32-32zm-240 32c-44.2 0-80 35.8-80 80v320c0 44.2 35.8 80 80 80h320c44.2 0 80-35.8 80-80v-112c0-17.7-14.3-32-32-32s-32 14.3-32 32v112c0 8.8-7.2 16-16 16h-320c-8.8 0-16-7.2-16-16v-320c0-8.8 7.2-16 16-16h112c17.7 0 32-14.3 32-32s-14.3-32-32-32z"/></svg>
-              <svg class="project-link web" viewBox="0 0 19.9219 19.9316" xmlns="http://www.w3.org/2000/svg"><path d="m0 0h19.9219v19.9316h-19.9219z" opacity="0"/><path d="m10.3711 17.4707c1.8555 0 3.418-2.832 3.8184-3.4961.5078-.8301.2734-1.6601.2734-2.1484 0-.3028 1.0351-1.0547 1.0351-1.94339 0-.89843-2.0019-1.64062-2.0019-2.00195 0-.23438.1953-.51758.3906-.51758.3809 0 1.4356 1.35742 2.0801 1.35742.3906 0 .5078-.34179.6641-.34179.2636 0 .4687 2.90039 1.8164 3.49609l.4101-.8984c-1.2402-.3223-.7812-3.66215-2.1191-3.66215-.4297 0-.6934.38086-.8594.38086-.1074 0-.3613-.21484-.9375-.68359-.2832-.22461-.5762-.52734-1.1035-.52734-.6445 0-1.2695.73242-1.2695 1.40624 0 1.06446 1.9433 1.6211 1.9433 1.99219 0 .22459-.0879.40039-.4492.81059-.4004.4492-.5859.7519-.5859 1.1328 0 .166.0195.3222.0293.4687.0488.6543.0195.8985-.1661 1.211-.4492.6933-1.7285 2.9785-2.9687 2.9785-1.10352 0-1.00587-1.5821-1.00587-3.0469 0-1.4258-1.13281-2.5-2.63671-2.5-1.16211 0-1.71875-.5664-1.71875-1.66016 0-1.52343 1.60156-2.51953 3.125-2.51953 1.02539 0 1.83593.51758 2.63673.51758.6543 0 1.1133-.97656 1.1133-1.69922 0-.9082-1.92386-1.91406-2.5098-1.91406-.47852 0-.68359.2832-.72266.89844l.19532-.01953-.3125-.24414c-.41016-.30274-.73243-.47852-1.10352-.47852-.9375 0-.97656 1.25976-1.47461 1.25976-.12695 0-.21484-.08789-.21484-.2246 0-.42969 1.04492-1.3086 1.05469-2.51954l.00976-.79101h-.92773v.87891c0 1.17187-1.04493 1.60156-1.04493 2.52929 0 .56641.4004.9375 1.01563.9375 1.16211 0 1.18164-1.23047 1.65039-1.23047.37109.00977.80078.6543 1.54297.6543.44922 0 .66406-.3125.64453-.85938l-.27344.0879c.59574.21484 1.54294.68359 1.54294 1.12304 0 .25391-.1074.625-.3125.625-.4199 0-1.52341-.51758-2.50973-.51758-2.06055 0-4.11133 1.43555-4.11133 3.50586 0 1.65036.97656 2.64646 2.70508 2.64646.94726 0 1.65039.6348 1.65039 1.5137 0 1.4453-.16602 4.0332 1.99219 4.0332zm2.6367-13.45703c.2149 0 .4102.20508.7715.20508.2246 0 .3906-.20508.3906-.46875 0-.47852-.5371-.83984-1.2402-.83984-.8301 0-1.3086.27343-1.3086.75195 0 .3125.2344.53711.5469.53711.3222 0 .4687-.18555.8398-.18555zm-3.04686 15.90823c5.44926 0 9.96096-4.5215 9.96096-9.96096 0-5.44922-4.5215-9.96094-9.97073-9.96094-5.43945 0-9.95117 4.51172-9.95117 9.96094 0 5.43946 4.52148 9.96096 9.96094 9.96096zm0-1.3281c-4.7168 0-8.63282-3.9161-8.63282-8.63286 0-4.7168 3.90626-8.63282 8.62305-8.63282 4.71683 0 8.64263 3.91602 8.64263 8.63282 0 4.71676-3.9161 8.63286-8.63286 8.63286z" fill="#fff" fill-opacity=".85"/></svg>
-            </footer>
-          </a>
-        </div>
-      </article>
+        <ul class="contact__socials contact__social-list">
+          <li>
+            <a href="https://mailhide.io/en/e/bLVMN" aria-label="Open email via Mailhide (external)" onclick="mailhidepopup=window.open('https://mailhide.io/en/e/bLVMN','mailhidepopup','width=580,height=635'); return false;">Mail</a>
+          </li>
+          <li>
+            <a href="https://github.com/ericwolter" aria-label="Visit my GitHub profile (external)">GitHub</a>
+          </li>
+          <li>
+            <a href="https://www.linkedin.com/in/eric-wolter/" aria-label="Visit my LinkedIn profile (external)">LinkedIn</a>
+          </li>
+        </ul>
+      </div>
     </section>
   </main>
 {% endblock %}

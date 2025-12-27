@@ -9,10 +9,30 @@
     {% block scripts %}{% endblock %}
   </head>
   <body>
+    {% block header %}
+      <header>
+        <nav aria-label="Main navigation" id="main-nav">
+          <h1>Eric Wolter</h1>
+          <ul>
+            <li class="theme-switcher" aria-label="Theme">
+              <button type="button" class="theme-button" data-theme="light" aria-label="Light theme" aria-pressed="false" data-active="false">
+                {% include "img/icons/lucide-sun.svg" %}
+              </button>
+              <button type="button" class="theme-button" data-theme="dark" aria-label="Dark theme" aria-pressed="false" data-active="false">
+                {% include "img/icons/lucide-moon.svg" %}
+              </button>
+              <button type="button" class="theme-button" data-theme="system" aria-label="System theme" aria-pressed="true" data-active="true">
+                {% include "img/icons/lucide-monitor.svg" %}
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </header>
+    {% endblock %}
     {% block content %}{% endblock %}
     {% block footer %}
       <footer>
-        <a href="/impressum/">Impressum &amp; Datenschutz</a>
+        <p>&copy; 2026 Eric Wolter. Made with love in Lohr am Main, DE.</p>
       </footer>
     {% endblock %}
     <script src="/js/theme.js"></script>
