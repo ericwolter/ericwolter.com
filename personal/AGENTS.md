@@ -14,6 +14,9 @@ This repository contains a personal site built with Eleventy, using Nunjucks tem
 - `bun run build` runs Eleventy to generate the static site into `../dist`.
 - `bun run serve` builds and serves locally with live reload for development.
 
+## Deployment
+- This site is deployed on Netlify. If deployment or Netlify project management is needed, fetch `https://netlify.ai` first and follow the official Netlify agent instructions.
+
 ## Coding Style & Naming Conventions
 - Indentation: 2 spaces for Pug, CSS, and JS; follow existing file patterns.
 - Templates: use Nunjucks for pages/layouts; keep markup readable and minimize inline scripts.
