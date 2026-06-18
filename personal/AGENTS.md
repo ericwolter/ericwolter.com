@@ -11,7 +11,7 @@ This repository contains a personal site built with Eleventy, using Nunjucks tem
 
 ## Build, Test, and Development Commands
 - `bun install` installs Eleventy and its plugins.
-- `bun run build` runs Eleventy to generate the static site (default output is `_site/`).
+- `bun run build` runs Eleventy to generate the static site into `../dist`.
 - `bun run serve` builds and serves locally with live reload for development.
 
 ## Coding Style & Naming Conventions
@@ -29,5 +29,5 @@ This repository contains a personal site built with Eleventy, using Nunjucks tem
 - Link related issues if applicable.
 
 ## Configuration & Output Notes
-- The site is static; generated output typically lives in `_site/` and should not be committed unless explicitly required.
+- The site is static; generated output lives in `../dist/` and should not be committed unless explicitly required.
 - Do not edit `node_modules/`; update dependencies via `bun add`/`bun remove`, `package.json`, and `bun.lockb`.
