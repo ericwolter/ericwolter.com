@@ -1,0 +1,32 @@
+---
+permalink: "/support/rowsync/"
+title: RowSync Support
+---
+{% extends "layout.njk" %}
+{% block content %}
+  <main style="padding: 0 2%; max-width: 760px; margin: 0 auto;">
+    <h1>RowSync Support</h1>
+    <p>For help with RowSync, please <a target="_blank" href="https://mailhide.io/e/Nh8h8">contact me</a>.</p>
+
+    <h2>What RowSync does</h2>
+    <p>RowSync imports indoor rowing workouts from an Augletics account into Apple Health.</p>
+    <ul>
+      <li>An Augletics account with workout history is required.</li>
+      <li>Apple Health permission is required before workouts can be written.</li>
+      <li>A network connection is required while signing in and fetching workouts.</li>
+    </ul>
+
+    <h2>Common issues</h2>
+    <h3>Health permissions are missing</h3>
+    <p>Open the Settings app, then go to Privacy &amp; Security &gt; Health &gt; RowSync and allow the requested categories.</p>
+
+    <h3>Sign-in does not work</h3>
+    <p>Check your Augletics email and password, verify your network connection, and try again.</p>
+
+    <h3>A workout is unsupported</h3>
+    <p>Some Augletics workout formats may not be recognized yet. RowSync can prepare a support package for unsupported workouts. Only share it if you consent to sending the raw workout data for debugging.</p>
+
+    <h2>Privacy</h2>
+    <p>Read the <a href="/privacy/rowsync/">RowSync privacy policy</a>.</p>
+  </main>
+{% endblock %}
