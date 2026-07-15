@@ -1,0 +1,985 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f3eb">
+  <title>Minute Path</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #18201f;
+      --muted: #66706d;
+      --paper: #f7f3eb;
+      --panel: rgba(255, 255, 255, 0.78);
+      --line: #d9d8d0;
+      --accent: #153f39;
+      --accent-hover: #0d2f2a;
+      --danger: #9e3530;
+      --focus: #176fbe;
+      --shadow: 0 24px 70px rgba(35, 45, 42, 0.12);
+      font-family: Inter, ui-rounded, "SF Pro Rounded", "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      min-height: 100%;
+      margin: 0;
+    }
+
+    body {
+      min-height: 100dvh;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 15% 15%, rgba(238, 190, 96, 0.16), transparent 28rem),
+        radial-gradient(circle at 90% 85%, rgba(69, 146, 134, 0.13), transparent 32rem),
+        var(--paper);
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      color: inherit;
+    }
+
+    button:focus-visible,
+    input:focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    .app {
+      width: min(100%, 92rem);
+      min-height: 100dvh;
+      margin: 0 auto;
+      padding: clamp(1rem, 2.8vw, 2.5rem);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(19rem, 25rem);
+      gap: clamp(1.5rem, 4vw, 4rem);
+      align-items: center;
+    }
+
+    .clock-column {
+      min-width: 0;
+      display: grid;
+      justify-items: center;
+      gap: clamp(0.8rem, 2vh, 1.5rem);
+    }
+
+    .brand {
+      justify-self: start;
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-mark {
+      width: 1.1rem;
+      height: 1.1rem;
+      border: 4px solid var(--accent);
+      border-top-color: #e8a63b;
+      border-radius: 50%;
+      transform: rotate(28deg);
+    }
+
+    .clock-wrap {
+      position: relative;
+      width: min(68vh, 100%);
+      aspect-ratio: 1;
+      filter: drop-shadow(0 20px 35px rgba(32, 39, 37, 0.13));
+    }
+
+    .clock-face {
+      display: block;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    .face-disc {
+      fill: rgba(255, 255, 255, 0.92);
+      stroke: rgba(24, 32, 31, 0.08);
+      stroke-width: 0.5;
+    }
+
+    .minute-marker {
+      stroke: #afb4b0;
+      stroke-width: 0.5;
+      stroke-linecap: round;
+    }
+
+    .hour-marker {
+      stroke: var(--ink);
+      stroke-width: 1.25;
+      stroke-linecap: round;
+    }
+
+    .hour-number {
+      fill: var(--ink);
+      font-size: 5px;
+      font-weight: 750;
+      text-anchor: middle;
+      dominant-baseline: middle;
+    }
+
+    .path-track {
+      fill: none;
+      stroke: #ebeae5;
+      stroke-width: 7.5;
+    }
+
+    .path-arc {
+      fill: none;
+      stroke-width: 7.5;
+      stroke-linecap: butt;
+      transition: stroke-dasharray 350ms linear, transform 350ms linear, opacity 200ms ease;
+    }
+
+    .path-arc.is-active {
+      filter: drop-shadow(0 0 1.2px rgba(24, 32, 31, 0.35));
+    }
+
+    .hand {
+      stroke: var(--ink);
+      stroke-linecap: round;
+      transform-origin: 50px 50px;
+    }
+
+    .hour-hand {
+      stroke-width: 2.6;
+    }
+
+    .minute-hand {
+      stroke-width: 1.8;
+    }
+
+    .second-hand {
+      stroke: #b54238;
+      stroke-width: 0.65;
+    }
+
+    .hand-pin {
+      fill: var(--ink);
+    }
+
+    .hand-pin-inner {
+      fill: #fff;
+    }
+
+    .time-readout {
+      position: absolute;
+      left: 50%;
+      top: 65%;
+      transform: translate(-50%, -50%);
+      margin: 0;
+      color: var(--muted);
+      font-size: clamp(0.72rem, 1.7vw, 0.95rem);
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.08em;
+    }
+
+    .routine-status {
+      min-height: 5.7rem;
+      text-align: center;
+      display: grid;
+      align-content: center;
+      gap: 0.25rem;
+    }
+
+    .eyebrow {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.73rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .status-title {
+      margin: 0;
+      font-size: clamp(1.8rem, 4vw, 3.25rem);
+      line-height: 1;
+      letter-spacing: -0.045em;
+    }
+
+    .status-detail,
+    .status-next {
+      margin: 0;
+      color: var(--muted);
+      font-size: clamp(0.95rem, 2vw, 1.1rem);
+    }
+
+    .status-next {
+      margin-top: 0.25rem;
+      color: var(--ink);
+      font-weight: 650;
+    }
+
+    .running-actions {
+      display: none;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .setup-panel {
+      align-self: center;
+      max-height: calc(100dvh - 3rem);
+      overflow: auto;
+      padding: clamp(1.25rem, 3vw, 2rem);
+      border: 1px solid rgba(24, 32, 31, 0.08);
+      border-radius: 1.5rem;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .setup-header h1 {
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 3.1rem);
+      line-height: 0.95;
+      letter-spacing: -0.055em;
+    }
+
+    .setup-header p {
+      margin: 0.8rem 0 1.4rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .path-list {
+      display: grid;
+      gap: 0.7rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .path-row {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) 5.4rem;
+      gap: 0.55rem;
+      align-items: center;
+      padding: 0.75rem;
+      border: 1px solid var(--line);
+      border-radius: 1rem;
+      background: rgba(255, 255, 255, 0.76);
+    }
+
+    .path-index {
+      display: grid;
+      place-items: center;
+      width: 1.75rem;
+      height: 1.75rem;
+      color: #fff;
+      border-radius: 50%;
+      font-size: 0.75rem;
+      font-weight: 850;
+    }
+
+    .field {
+      min-width: 0;
+      display: grid;
+      gap: 0.25rem;
+    }
+
+    .field label {
+      color: var(--muted);
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .field input {
+      min-width: 0;
+      width: 100%;
+      padding: 0.55rem 0.6rem;
+      color: var(--ink);
+      border: 1px solid transparent;
+      border-radius: 0.55rem;
+      background: #f3f2ed;
+      font-weight: 650;
+    }
+
+    .field input:hover {
+      border-color: #c7c8c3;
+    }
+
+    .path-actions {
+      grid-column: 2 / -1;
+      display: flex;
+      gap: 0.35rem;
+    }
+
+    .icon-button,
+    .button {
+      min-height: 2.5rem;
+      border: 0;
+      border-radius: 0.75rem;
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    .icon-button {
+      min-width: 2.5rem;
+      padding: 0.35rem;
+      background: #ecebe5;
+    }
+
+    .icon-button:hover:not(:disabled),
+    .button.secondary:hover:not(:disabled) {
+      background: #e1e0d9;
+    }
+
+    .icon-button.remove {
+      margin-left: auto;
+      color: var(--danger);
+    }
+
+    button:disabled {
+      opacity: 0.42;
+      cursor: not-allowed;
+    }
+
+    .empty-state {
+      padding: 1.5rem 1rem;
+      color: var(--muted);
+      border: 1px dashed #c7c6bf;
+      border-radius: 1rem;
+      text-align: center;
+      line-height: 1.45;
+    }
+
+    .summary {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      margin: 1.2rem 0 0.75rem;
+      font-weight: 750;
+    }
+
+    .total-value {
+      font-variant-numeric: tabular-nums;
+    }
+
+    .validation {
+      min-height: 1.35rem;
+      margin: 0 0 0.8rem;
+      color: var(--danger);
+      font-size: 0.86rem;
+      line-height: 1.35;
+    }
+
+    .panel-actions {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 0.65rem;
+    }
+
+    .button {
+      padding: 0.72rem 1rem;
+    }
+
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+    }
+
+    .button.primary:hover:not(:disabled) {
+      background: var(--accent-hover);
+    }
+
+    .button.secondary {
+      background: #ebeae4;
+    }
+
+    .button.ghost {
+      min-height: 2.25rem;
+      padding: 0.5rem 0.8rem;
+      border: 1px solid rgba(24, 32, 31, 0.16);
+      background: rgba(255, 255, 255, 0.65);
+    }
+
+    .app.running {
+      grid-template-columns: 1fr;
+      width: 100%;
+      padding-block: clamp(0.75rem, 2vh, 1.5rem);
+    }
+
+    .app.running .setup-panel,
+    .app.running .brand {
+      display: none;
+    }
+
+    .app.running .clock-wrap {
+      width: min(74vh, 90vw);
+    }
+
+    .app.running .running-actions {
+      display: flex;
+    }
+
+    .app.complete .path-track {
+      opacity: 0;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (max-width: 760px) {
+      .app {
+        grid-template-columns: 1fr;
+        align-items: start;
+      }
+
+      .brand {
+        justify-self: center;
+      }
+
+      .clock-wrap {
+        width: min(72vh, 92vw);
+      }
+
+      .setup-panel {
+        width: min(100%, 34rem);
+        max-height: none;
+        justify-self: center;
+      }
+    }
+
+    @media (max-width: 430px) {
+      .app {
+        padding: 0.8rem;
+        gap: 1rem;
+      }
+
+      .path-row {
+        grid-template-columns: auto minmax(0, 1fr);
+      }
+
+      .field.duration-field {
+        grid-column: 2;
+        width: 7rem;
+      }
+
+      .path-actions {
+        grid-column: 1 / -1;
+      }
+
+      .panel-actions {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="app" id="app">
+    <section class="clock-column" aria-label="Clock and routine status">
+      <div class="brand" aria-label="Minute Path">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Minute Path</span>
+      </div>
+
+      <div class="clock-wrap">
+        <svg class="clock-face" id="clock" viewBox="0 0 100 100" role="img" aria-labelledby="clock-title clock-description">
+          <title id="clock-title">Live analog clock</title>
+          <desc id="clock-description">The clock displays the current time and colored arcs for the routine.</desc>
+          <circle class="face-disc" cx="50" cy="50" r="47"></circle>
+          <circle class="path-track" cx="50" cy="50" r="40"></circle>
+          <g id="path-arcs" aria-hidden="true"></g>
+          <g id="clock-markers" aria-hidden="true"></g>
+          <line class="hand hour-hand" id="hour-hand" x1="50" y1="53" x2="50" y2="31"></line>
+          <line class="hand minute-hand" id="minute-hand" x1="50" y1="55" x2="50" y2="21"></line>
+          <line class="hand second-hand" id="second-hand" x1="50" y1="57" x2="50" y2="17"></line>
+          <circle class="hand-pin" cx="50" cy="50" r="2.2"></circle>
+          <circle class="hand-pin-inner" cx="50" cy="50" r="0.75"></circle>
+        </svg>
+        <time class="time-readout" id="time-readout"></time>
+      </div>
+
+      <div class="routine-status" id="routine-status" aria-live="polite">
+        <p class="eyebrow" id="status-eyebrow">Build a path</p>
+        <h2 class="status-title" id="status-title">Your next hour</h2>
+        <p class="status-detail" id="status-detail">Add a few activities to begin.</p>
+        <p class="status-next" id="status-next"></p>
+      </div>
+
+      <div class="running-actions">
+        <button class="button ghost" id="fullscreen-button" type="button">Full screen</button>
+        <button class="button ghost" id="reset-button" type="button">Edit routine</button>
+      </div>
+    </section>
+
+    <aside class="setup-panel" aria-labelledby="setup-title">
+      <header class="setup-header">
+        <h1 id="setup-title">Make a minute path.</h1>
+        <p>Turn the next hour into a simple, visible sequence.</p>
+      </header>
+
+      <form id="path-form" novalidate>
+        <ol class="path-list" id="path-list"></ol>
+        <div class="empty-state" id="empty-state">
+          No activities yet. Add the first step in your routine.
+        </div>
+
+        <div class="summary">
+          <span>Total routine</span>
+          <span class="total-value" id="total-duration">0 min</span>
+        </div>
+        <p class="validation" id="validation-message" role="alert"></p>
+
+        <div class="panel-actions">
+          <button class="button secondary" id="add-path-button" type="button">+ Add path</button>
+          <button class="button primary" id="start-button" type="submit" disabled>Start now</button>
+        </div>
+      </form>
+    </aside>
+  </main>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const STORAGE_PATHS = "minute-path.paths";
+      const STORAGE_RUNNING = "minute-path.running";
+      const COLORS = ["#e08b36", "#278b7d", "#7768b2", "#c45163", "#4b78c2", "#9a7135"];
+      const CIRCLE_LENGTH = 100;
+
+      const elements = {
+        app: document.querySelector("#app"),
+        arcs: document.querySelector("#path-arcs"),
+        markers: document.querySelector("#clock-markers"),
+        hourHand: document.querySelector("#hour-hand"),
+        minuteHand: document.querySelector("#minute-hand"),
+        secondHand: document.querySelector("#second-hand"),
+        timeReadout: document.querySelector("#time-readout"),
+        statusEyebrow: document.querySelector("#status-eyebrow"),
+        statusTitle: document.querySelector("#status-title"),
+        statusDetail: document.querySelector("#status-detail"),
+        statusNext: document.querySelector("#status-next"),
+        form: document.querySelector("#path-form"),
+        list: document.querySelector("#path-list"),
+        emptyState: document.querySelector("#empty-state"),
+        totalDuration: document.querySelector("#total-duration"),
+        validation: document.querySelector("#validation-message"),
+        addButton: document.querySelector("#add-path-button"),
+        startButton: document.querySelector("#start-button"),
+        resetButton: document.querySelector("#reset-button"),
+        fullscreenButton: document.querySelector("#fullscreen-button")
+      };
+
+      let paths = loadPaths();
+      let running = loadRunning();
+
+      function createId() {
+        if (globalThis.crypto && typeof globalThis.crypto.randomUUID === "function") {
+          return globalThis.crypto.randomUUID();
+        }
+        return `path-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+      }
+
+      function isPath(value) {
+        return value && typeof value.id === "string" && typeof value.label === "string" &&
+          Number.isFinite(Number(value.durationMinutes));
+      }
+
+      function sanitizePaths(value) {
+        if (!Array.isArray(value)) return [];
+        return value.filter(isPath).map(path => ({
+          id: path.id,
+          label: path.label,
+          durationMinutes: Number(path.durationMinutes)
+        }));
+      }
+
+      function readStorage(key) {
+        try {
+          const raw = localStorage.getItem(key);
+          return raw ? JSON.parse(raw) : null;
+        } catch (error) {
+          console.warn(`Could not read ${key}`, error);
+          return null;
+        }
+      }
+
+      function writeStorage(key, value) {
+        try {
+          localStorage.setItem(key, JSON.stringify(value));
+        } catch (error) {
+          console.warn(`Could not save ${key}`, error);
+        }
+      }
+
+      function removeStorage(key) {
+        try {
+          localStorage.removeItem(key);
+        } catch (error) {
+          console.warn(`Could not remove ${key}`, error);
+        }
+      }
+
+      function loadPaths() {
+        return sanitizePaths(readStorage(STORAGE_PATHS));
+      }
+
+      function loadRunning() {
+        const value = readStorage(STORAGE_RUNNING);
+        if (!value || typeof value.startedAt !== "string" || Number.isNaN(new Date(value.startedAt).getTime())) {
+          return null;
+        }
+        const savedPaths = sanitizePaths(value.paths);
+        return savedPaths.length ? { startedAt: value.startedAt, paths: savedPaths } : null;
+      }
+
+      function savePaths() {
+        writeStorage(STORAGE_PATHS, paths);
+      }
+
+      function getValidation() {
+        if (paths.length === 0) return { valid: false, message: "Add at least one path." };
+
+        const missingLabel = paths.some(path => !path.label.trim());
+        if (missingLabel) return { valid: false, message: "Every path needs a label." };
+
+        const invalidDuration = paths.some(path => !Number.isInteger(path.durationMinutes) || path.durationMinutes < 1 || path.durationMinutes > 60);
+        if (invalidDuration) return { valid: false, message: "Each duration must be a whole number from 1 to 60." };
+
+        const total = getTotal(paths);
+        if (total > 60) return { valid: false, message: `Shorten the routine by ${total - 60} min to fit one hour.` };
+
+        return { valid: true, message: "" };
+      }
+
+      function getTotal(items) {
+        return items.reduce((sum, path) => sum + (Number.isFinite(path.durationMinutes) ? path.durationMinutes : 0), 0);
+      }
+
+      function escapeHtml(value) {
+        return String(value)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+      }
+
+      function renderEditor() {
+        elements.list.innerHTML = paths.map((path, index) => `
+          <li class="path-row" data-id="${escapeHtml(path.id)}">
+            <span class="path-index" style="background:${COLORS[index % COLORS.length]}" aria-hidden="true">${index + 1}</span>
+            <div class="field">
+              <label for="label-${escapeHtml(path.id)}">Path ${index + 1}</label>
+              <input id="label-${escapeHtml(path.id)}" name="label" type="text" maxlength="40" value="${escapeHtml(path.label)}" aria-label="Path ${index + 1} label">
+            </div>
+            <div class="field duration-field">
+              <label for="duration-${escapeHtml(path.id)}">Minutes</label>
+              <input id="duration-${escapeHtml(path.id)}" name="duration" type="number" min="1" max="60" step="1" inputmode="numeric" value="${path.durationMinutes}" aria-label="Path ${index + 1} duration in minutes">
+            </div>
+            <div class="path-actions">
+              <button class="icon-button" type="button" data-action="up" aria-label="Move ${escapeHtml(path.label || `path ${index + 1}`)} up" ${index === 0 ? "disabled" : ""}>↑</button>
+              <button class="icon-button" type="button" data-action="down" aria-label="Move ${escapeHtml(path.label || `path ${index + 1}`)} down" ${index === paths.length - 1 ? "disabled" : ""}>↓</button>
+              <button class="icon-button remove" type="button" data-action="remove" aria-label="Remove ${escapeHtml(path.label || `path ${index + 1}`)}">Remove</button>
+            </div>
+          </li>
+        `).join("");
+
+        const total = getTotal(paths);
+        const validation = getValidation();
+        elements.emptyState.hidden = paths.length > 0;
+        elements.totalDuration.textContent = `${total} min`;
+        elements.validation.textContent = paths.length ? validation.message : "";
+        elements.startButton.disabled = !validation.valid;
+      }
+
+      function addPath() {
+        const remaining = Math.max(1, 60 - getTotal(paths));
+        paths.push({
+          id: createId(),
+          label: "",
+          durationMinutes: Math.min(5, remaining)
+        });
+        savePaths();
+        renderEditor();
+        render(new Date());
+        const input = elements.list.lastElementChild?.querySelector('input[name="label"]');
+        input?.focus();
+      }
+
+      function updatePathFromInput(input) {
+        const row = input.closest("[data-id]");
+        const path = paths.find(item => item.id === row?.dataset.id);
+        if (!path) return;
+
+        if (input.name === "label") {
+          path.label = input.value;
+          const index = paths.indexOf(path);
+          const name = path.label.trim() || `path ${index + 1}`;
+          row.querySelector('[data-action="up"]')?.setAttribute("aria-label", `Move ${name} up`);
+          row.querySelector('[data-action="down"]')?.setAttribute("aria-label", `Move ${name} down`);
+          row.querySelector('[data-action="remove"]')?.setAttribute("aria-label", `Remove ${name}`);
+        }
+        if (input.name === "duration") path.durationMinutes = Number(input.value);
+        savePaths();
+
+        const validation = getValidation();
+        const total = getTotal(paths);
+        elements.totalDuration.textContent = `${total} min`;
+        elements.validation.textContent = validation.message;
+        elements.startButton.disabled = !validation.valid;
+        render(new Date());
+      }
+
+      function handlePathAction(button) {
+        const row = button.closest("[data-id]");
+        const index = paths.findIndex(item => item.id === row?.dataset.id);
+        if (index < 0) return;
+
+        const action = button.dataset.action;
+        if (action === "remove") paths.splice(index, 1);
+        if (action === "up" && index > 0) [paths[index - 1], paths[index]] = [paths[index], paths[index - 1]];
+        if (action === "down" && index < paths.length - 1) [paths[index + 1], paths[index]] = [paths[index], paths[index + 1]];
+
+        savePaths();
+        renderEditor();
+        render(new Date());
+      }
+
+      function createClockMarkers() {
+        const namespace = "http://www.w3.org/2000/svg";
+        for (let minute = 0; minute < 60; minute += 1) {
+          const angle = minute * 6 * Math.PI / 180;
+          const isHour = minute % 5 === 0;
+          const outerRadius = 45;
+          const innerRadius = isHour ? 42.5 : 44;
+          const line = document.createElementNS(namespace, "line");
+          line.setAttribute("x1", 50 + Math.sin(angle) * innerRadius);
+          line.setAttribute("y1", 50 - Math.cos(angle) * innerRadius);
+          line.setAttribute("x2", 50 + Math.sin(angle) * outerRadius);
+          line.setAttribute("y2", 50 - Math.cos(angle) * outerRadius);
+          line.setAttribute("class", isHour ? "hour-marker" : "minute-marker");
+          elements.markers.appendChild(line);
+        }
+
+        [12, 3, 6, 9].forEach(hour => {
+          const angle = (hour % 12) * 30 * Math.PI / 180;
+          const text = document.createElementNS(namespace, "text");
+          text.setAttribute("x", 50 + Math.sin(angle) * 34.4);
+          text.setAttribute("y", 50 - Math.cos(angle) * 34.4);
+          text.setAttribute("class", "hour-number");
+          text.textContent = hour;
+          elements.markers.appendChild(text);
+        });
+      }
+
+      function getMinuteAngle(date) {
+        return date.getMinutes() * 6 + date.getSeconds() * 0.1 + date.getMilliseconds() / 10000;
+      }
+
+      function getRoutineState(now) {
+        if (!running) return null;
+        const started = new Date(running.startedAt);
+        const elapsedMinutes = Math.max(0, (now.getTime() - started.getTime()) / 60000);
+        let offset = 0;
+        let activeIndex = -1;
+        const timeline = running.paths.map((path, index) => {
+          const startOffset = offset;
+          const endOffset = startOffset + path.durationMinutes;
+          if (elapsedMinutes >= startOffset && elapsedMinutes < endOffset) activeIndex = index;
+          offset = endOffset;
+          return { ...path, startOffset, endOffset };
+        });
+
+        return {
+          started,
+          elapsedMinutes,
+          total: offset,
+          timeline,
+          activeIndex,
+          complete: elapsedMinutes >= offset
+        };
+      }
+
+      function setHand(element, degrees) {
+        element.style.transform = `rotate(${degrees}deg)`;
+      }
+
+      function drawClock(now) {
+        const hours = now.getHours() % 12;
+        const minutes = now.getMinutes();
+        const seconds = now.getSeconds();
+        setHand(elements.hourHand, hours * 30 + minutes * 0.5 + seconds / 120);
+        setHand(elements.minuteHand, minutes * 6 + seconds * 0.1);
+        setHand(elements.secondHand, seconds * 6);
+        elements.timeReadout.dateTime = now.toISOString();
+        elements.timeReadout.textContent = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+      }
+
+      function drawArcs(now, state) {
+        const namespace = "http://www.w3.org/2000/svg";
+        const visiblePaths = state ? state.timeline : paths.map((path, index, items) => ({
+          ...path,
+          startOffset: items.slice(0, index).reduce((sum, item) => sum + (Number.isFinite(item.durationMinutes) ? item.durationMinutes : 0), 0),
+          endOffset: items.slice(0, index + 1).reduce((sum, item) => sum + (Number.isFinite(item.durationMinutes) ? item.durationMinutes : 0), 0)
+        }));
+        const startAngle = state ? getMinuteAngle(state.started) : getMinuteAngle(now);
+
+        elements.arcs.replaceChildren();
+        visiblePaths.forEach((path, index) => {
+          const elapsed = state ? state.elapsedMinutes : 0;
+          const remainingStart = Math.max(path.startOffset, elapsed);
+          const remainingMinutes = Math.max(0, path.endOffset - remainingStart);
+          if (remainingMinutes <= 0 || !Number.isFinite(remainingMinutes)) return;
+
+          const circle = document.createElementNS(namespace, "circle");
+          const fraction = Math.min(1, remainingMinutes / 60);
+          const gap = fraction < 1 ? Math.min(0.22, fraction * CIRCLE_LENGTH * 0.12) : 0;
+          const dash = Math.max(0, fraction * CIRCLE_LENGTH - gap);
+          const angle = startAngle + remainingStart * 6;
+          circle.setAttribute("cx", "50");
+          circle.setAttribute("cy", "50");
+          circle.setAttribute("r", "40");
+          circle.setAttribute("pathLength", String(CIRCLE_LENGTH));
+          circle.setAttribute("class", `path-arc${state && index === state.activeIndex ? " is-active" : ""}`);
+          circle.setAttribute("stroke", COLORS[index % COLORS.length]);
+          circle.setAttribute("stroke-dasharray", `${dash} ${CIRCLE_LENGTH - dash}`);
+          circle.setAttribute("transform", `rotate(${angle - 90} 50 50)`);
+          elements.arcs.appendChild(circle);
+        });
+      }
+
+      function updateStatus(state) {
+        elements.app.classList.toggle("running", Boolean(running));
+        elements.app.classList.toggle("complete", Boolean(state?.complete));
+
+        if (!running) {
+          if (paths.length === 0) {
+            elements.statusEyebrow.textContent = "Build a path";
+            elements.statusTitle.textContent = "Your next hour";
+            elements.statusDetail.textContent = "Add a few activities to begin.";
+          } else {
+            const total = getTotal(paths);
+            elements.statusEyebrow.textContent = "Preview";
+            elements.statusTitle.textContent = `${paths.length} ${paths.length === 1 ? "path" : "paths"}`;
+            elements.statusDetail.textContent = `${total} min from the current time`;
+          }
+          elements.statusNext.textContent = "";
+          return;
+        }
+
+        if (state.complete) {
+          elements.statusEyebrow.textContent = "Routine complete";
+          elements.statusTitle.textContent = "Ready!";
+          elements.statusDetail.textContent = "Every path is finished.";
+          elements.statusNext.textContent = "";
+          return;
+        }
+
+        const active = state.timeline[state.activeIndex];
+        const next = state.timeline[state.activeIndex + 1];
+        const remaining = Math.max(0, active.endOffset - state.elapsedMinutes);
+        const roundedRemaining = Math.max(1, Math.ceil(remaining));
+        elements.statusEyebrow.textContent = "Now";
+        elements.statusTitle.textContent = active.label;
+        elements.statusDetail.textContent = `${roundedRemaining} min remaining`;
+        elements.statusNext.textContent = next ? `Next: ${next.label}` : "Last path";
+      }
+
+      function render(now) {
+        const state = getRoutineState(now);
+        drawClock(now);
+        drawArcs(now, state);
+        updateStatus(state);
+      }
+
+      function startRoutine() {
+        const validation = getValidation();
+        if (!validation.valid) {
+          elements.validation.textContent = validation.message;
+          return;
+        }
+
+        const cleanPaths = paths.map(path => ({
+          id: path.id,
+          label: path.label.trim(),
+          durationMinutes: path.durationMinutes
+        }));
+        paths = cleanPaths;
+        savePaths();
+        running = { startedAt: new Date().toISOString(), paths: cleanPaths };
+        writeStorage(STORAGE_RUNNING, running);
+        render(new Date());
+      }
+
+      function resetRoutine() {
+        running = null;
+        removeStorage(STORAGE_RUNNING);
+        renderEditor();
+        render(new Date());
+      }
+
+      async function toggleFullscreen() {
+        try {
+          if (document.fullscreenElement) {
+            await document.exitFullscreen();
+          } else {
+            await document.documentElement.requestFullscreen();
+          }
+        } catch (error) {
+          console.warn("Full screen is not available", error);
+        }
+      }
+
+      elements.addButton.addEventListener("click", addPath);
+      elements.form.addEventListener("submit", event => {
+        event.preventDefault();
+        startRoutine();
+      });
+      elements.list.addEventListener("input", event => {
+        if (event.target.matches("input")) updatePathFromInput(event.target);
+      });
+      elements.list.addEventListener("click", event => {
+        const button = event.target.closest("button[data-action]");
+        if (button) handlePathAction(button);
+      });
+      elements.resetButton.addEventListener("click", resetRoutine);
+      elements.fullscreenButton.addEventListener("click", toggleFullscreen);
+      document.addEventListener("fullscreenchange", () => {
+        elements.fullscreenButton.textContent = document.fullscreenElement ? "Exit full screen" : "Full screen";
+      });
+
+      createClockMarkers();
+      renderEditor();
+      render(new Date());
+      setInterval(() => render(new Date()), 1000);
+    })();
+  </script>
+</body>
+</html>
