@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+if [ ! -f "apple-healthkit-csv/deploy.sh" ]; then
+  printf 'Missing health converter source; refusing an incomplete website build.\n' >&2
+  exit 1
+fi
+
 rm -rf "dist/"
 
 if ! command -v bun >/dev/null 2>&1; then
@@ -12,11 +17,6 @@ pushd personal/ >/dev/null
 bun install
 bun run build
 popd >/dev/null
-
-if [ ! -f "apple-healthkit-csv/deploy.sh" ]; then
-  printf 'Skipping apple-healthkit-csv deploy step; submodule is not initialized.\n'
-  exit 0
-fi
 
 pushd apple-healthkit-csv/ >/dev/null
 npm install
