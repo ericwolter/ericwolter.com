@@ -1,0 +1,19 @@
+{
+  "name": "ericwolter.com",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "dev": "eleventy --serve",
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/check.mjs",
+    "import-app": "node scripts/import-app.mjs",
+    "test": "node --test scripts/check.test.mjs"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "3.1.6",
+    "modern-normalize": "3.0.1"
+  }
+}

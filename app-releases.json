@@ -1,0 +1,21 @@
+{
+  "minute-path": {
+    "repository": "https://github.com/ericwolter/minute-path",
+    "path": "/project/minute-path/",
+    "ref": "v1.2.1",
+    "commit": "531f6b4eb5b3664f185e3373b4131d2366b27334",
+    "files": {
+      "index.html": "315040a76a0c6c9142ccf6b274b27289d7c284fb405ae74e95e2d644d884bcb4"
+    }
+  },
+  "apple-healthkit-csv": {
+    "repository": "https://github.com/ericwolter/apple-healthkit-csv",
+    "path": "/projects/apple-health-export/",
+    "ref": "52f85d0",
+    "commit": "52f85d07449ae5a03da8132ec714c250c2c06386",
+    "files": {
+      "index.html": "db3e63e57dd6b0d943d5b6f54753c437a062eb575329afa393694e8fd90ffbd8",
+      "LICENSE": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+    }
+  }
+}
